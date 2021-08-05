@@ -9,16 +9,22 @@ import ru.geekbrains.stargame.base.BaseScreen;
 public class MenuScreen extends BaseScreen {
 
     private Texture img;
-    private Vector2 pos;
-    private Vector2 v;
+    private Vector2 position;
+    private Vector2 clickPosition;
+    private static final float SPEED = 0.5f;
+    private Vector2 velocity;
+    private Vector2 clickPosCopy;
 
 
     @Override
     public void show() {
         super.show();
         img = new Texture("badlogic.jpg");
-        pos = new Vector2(); // позиция
-        v = new Vector2(1,1);
+        position = new Vector2(); // позиция картинки
+        clickPosition = new Vector2(); //позиция клика
+        velocity = new Vector2(); // скорость (расстояние между позициями двух векторов)
+        clickPosCopy = new Vector2();
+
 
     }
 
@@ -26,9 +32,15 @@ public class MenuScreen extends BaseScreen {
     public void render(float delta) {
         super.render(delta);
         batch.begin();
-        batch.draw(img, pos.x, pos.y);
+        batch.draw(img, position.x, position.y);
         batch.end();
-        pos.add(v);
+        clickPosCopy.set(clickPosition);
+        if(clickPosCopy.sub(position).len() > SPEED){
+            position.add(velocity);
+        } else {
+            position.set(clickPosition);
+        }
+
     }
 
     @Override
@@ -39,13 +51,15 @@ public class MenuScreen extends BaseScreen {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        pos.set(screenX, Gdx.graphics.getHeight() - screenY); // переворот координат
+        clickPosition.set(screenX, Gdx.graphics.getHeight() - screenY); // переворот координат
+        velocity.set(clickPosition.cpy().sub(position)).scl(SPEED);
         return super.touchDown(screenX, screenY, pointer, button);
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        pos.set(screenX, Gdx.graphics.getHeight() - screenY); // переворот координат
+        clickPosition.set(screenX, Gdx.graphics.getHeight() - screenY); // переворот координат
+        velocity.set(clickPosition.cpy().sub(position)).scl(SPEED);
         return super.touchDragged(screenX, screenY, pointer);
     }
 }
