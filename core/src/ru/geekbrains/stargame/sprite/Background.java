@@ -13,7 +13,7 @@ public class Background extends Sprite {
 
     @Override
     public void resize(Rect worldBounds) {
-        setHeightProportion(worldBounds.getHeight());
-        pos.set(worldBounds.pos);
+        setHeightProportion(worldBounds.getHeight()); // отцентровать (высота = высоте игрового мира)
+        pos.set(worldBounds.pos); // отцентровка фона от центра
     }
 }

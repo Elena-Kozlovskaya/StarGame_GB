@@ -11,7 +11,6 @@ public class MenuScreen extends BaseScreen {
 
     private Texture bg;
     private Background background;
-
     private Vector2 pos;
 
     @Override
@@ -25,6 +24,7 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void resize(Rect worldBounds) {
         background.resize(worldBounds);
+
     }
 
     @Override
