@@ -19,12 +19,14 @@ public class Sprite extends Rect {
     }
 
     public void setHeightProportion(float height) {
+        System.out.println("Sprite setHeightProportion");
         setHeight(height);
         float aspect = regions[frame].getRegionWidth() / (float) regions[frame].getRegionHeight();
         setWidth(height * aspect);
     }
 
     public void draw(SpriteBatch batch) {
+        System.out.println("Sprite draw");
         batch.draw(
                 regions[frame],
                 getLeft(), getBottom(),
@@ -36,6 +38,10 @@ public class Sprite extends Rect {
     }
 
     public void resize(Rect worldBounds) {
+        System.out.println("Sprite resize");
+    }
+
+    public void update(float delta){
 
     }
 

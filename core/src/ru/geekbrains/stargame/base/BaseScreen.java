@@ -1,4 +1,4 @@
-package ru.gb.base;
+package ru.geekbrains.stargame.base;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
