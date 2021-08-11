@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import ru.geekbrains.stargame.math.MatrixUtils;
 import ru.geekbrains.stargame.math.Rect;
 
-public class BaseScreen implements Screen, InputProcessor {
+ public class BaseScreen implements Screen, InputProcessor {
 
     protected SpriteBatch batch;
 
