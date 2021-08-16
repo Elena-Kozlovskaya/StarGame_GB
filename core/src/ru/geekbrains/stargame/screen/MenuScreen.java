@@ -1,6 +1,8 @@
 package ru.geekbrains.stargame.screen;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -18,6 +20,7 @@ public class MenuScreen extends BaseScreen {
 
     private final Game game;
 
+
     private Texture bg;
     private Background background;
 
@@ -26,11 +29,12 @@ public class MenuScreen extends BaseScreen {
 
     private ExitButton exitButton;
     private PlayButton playButton;
+    private Music music;
+
 
     public MenuScreen(Game game) {
         this.game = game;
     }
-
 
     @Override
     public void show() {
@@ -44,6 +48,8 @@ public class MenuScreen extends BaseScreen {
         }
         exitButton = new ExitButton(atlas);
         playButton = new PlayButton(atlas, game);
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
+        music.play();
 
 
     }
@@ -86,6 +92,7 @@ public class MenuScreen extends BaseScreen {
         super.dispose();
         bg.dispose();
         atlas.dispose();
+        music.dispose();
     }
 
     @Override
@@ -100,6 +107,7 @@ public class MenuScreen extends BaseScreen {
     public boolean touchUp(Vector2 touch, int pointer, int button) {
         exitButton.touchUp(touch, pointer, button);
         playButton.touchUp(touch, pointer, button);
+        music.stop();
         return false;
     }
 }

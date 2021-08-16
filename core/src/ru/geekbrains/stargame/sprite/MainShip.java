@@ -1,6 +1,8 @@
 package ru.geekbrains.stargame.sprite;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -31,6 +33,8 @@ public class MainShip extends Sprite {
 
     private float bulletHeight;
     private int bulletDamage;
+    private Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/bullet.wav"));
+    private float bulletTime = 0;
 
 
     public MainShip(TextureAtlas atlas, BulletPool bulletPool) {
@@ -41,6 +45,8 @@ public class MainShip extends Sprite {
         bulletPos = new Vector2();
         bulletHeight = 0.01f;
         bulletDamage = 1;
+
+
     }
 
 
@@ -59,6 +65,15 @@ public class MainShip extends Sprite {
     public void update(float delta) {
         super.update(delta);
         pos.mulAdd(v, delta);
+
+        if(bulletTime <= 0){
+                    shoot();
+            bulletTime = 5;
+        } else {
+            bulletTime -= 0.5f;
+        }
+
+
         /*if(getRight() > worldBounds.getRight()){
             setRight(worldBounds.getRight());
             stop();
@@ -151,7 +166,7 @@ public class MainShip extends Sprite {
                 }
                 break;
             case Input.Keys.UP:
-                shoot();
+                    shoot();
                 break;
         }
         return false;
@@ -171,6 +186,8 @@ public class MainShip extends Sprite {
 
     private void shoot(){
         Bullet bullet = bulletPool.obtain();
+        sound.play(0.03f);
+        System.out.println("shoot.sound.play");
         bulletPos.set(pos.x, pos.y + getHalfHeight());
         bullet.set(this, bulletRegion, bulletPos, bulletV, bulletHeight, worldBounds, bulletDamage);
     }
