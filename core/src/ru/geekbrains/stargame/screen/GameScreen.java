@@ -6,12 +6,14 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-
+import java.util.List;
 import ru.geekbrains.stargame.base.BaseScreen;
 import ru.geekbrains.stargame.math.Rect;
 import ru.geekbrains.stargame.pool.BulletPool;
 import ru.geekbrains.stargame.pool.EnemyPool;
 import ru.geekbrains.stargame.sprite.Background;
+import ru.geekbrains.stargame.sprite.Bullet;
+import ru.geekbrains.stargame.sprite.EnemyShip;
 import ru.geekbrains.stargame.sprite.MainShip;
 import ru.geekbrains.stargame.sprite.Star;
 import ru.geekbrains.stargame.utils.EnemyEmitter;
@@ -124,6 +126,35 @@ public class GameScreen extends BaseScreen {
     }
 
     private void checkCollisions(){
+        List<EnemyShip> enemyShips = enemyPool.getActiveSprites();
+        List<Bullet> bullets = bulletPool.getActiveSprites();
+        for(EnemyShip enemyShip : enemyShips){
+            if(enemyShip.isDestroyed()){
+                continue;
+            }
+            if(!mainShip.isOutside(enemyShip)){
+                enemyShip.destroy();
+            }
+        }
+
+                for (Bullet bullet : bullets) {
+                    if (bullet.isDestroyed()) {
+                        continue;
+                    }
+                    if (mainShip.equals(bullet.getOwner()) ) {
+                        for (EnemyShip enemyShip : enemyShips) {
+                            if (enemyShip.isDestroyed()) {
+                                continue;
+                            }
+                            if (!bullet.isOutside(enemyShip)) {
+                                if(enemyShip.takeDamage(1)){
+                                    enemyShip.destroy();
+                                }
+                                bullet.destroy();
+                            }
+                        }
+                    }
+                }
 
     }
 

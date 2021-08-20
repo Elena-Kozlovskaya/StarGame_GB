@@ -48,6 +48,7 @@ public class Bullet extends Sprite {
         return damage;
     }
 
+    // передает объект владельца пули
     public Sprite getOwner() {
         return owner;
     }
