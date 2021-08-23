@@ -8,7 +8,7 @@ import ru.geekbrains.stargame.base.Sprite;
 
 public class Explosion extends Sprite {
 
-    private static final float ANIMATE_INTERVAL = 0.17f;
+    private static final float ANIMATE_INTERVAL = 0.01f;
 
     private float  animateTimer;
 

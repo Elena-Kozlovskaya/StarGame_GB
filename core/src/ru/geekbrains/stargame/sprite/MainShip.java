@@ -38,7 +38,7 @@ public class MainShip extends Ship {
         bulletDamage = 1;
         reloadInterval = RELOAD_INTERVAL;
         v0.set(0.5f, 0);
-        hp = 1;
+        hp = 20;
     }
 
 
@@ -175,6 +175,11 @@ public class MainShip extends Ship {
 
     public void stop(){
         v.setZero();
+    }
+
+    public void revival(){
+        hp = 0;
+        hp = 20;
     }
 
   /*  private void shoot(){
