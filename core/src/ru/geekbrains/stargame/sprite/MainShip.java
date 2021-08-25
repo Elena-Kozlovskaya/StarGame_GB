@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import ru.geekbrains.stargame.base.Ship;
 import ru.geekbrains.stargame.math.Rect;
 import ru.geekbrains.stargame.pool.BulletPool;
+import ru.geekbrains.stargame.pool.ExplosionPool;
 
 public class MainShip extends Ship {
 
@@ -26,9 +27,10 @@ public class MainShip extends Ship {
 
 
 
-    public MainShip(TextureAtlas atlas, BulletPool bulletPool, Sound bulletSound) {
+    public MainShip(TextureAtlas atlas, BulletPool bulletPool, ExplosionPool explosionPool, Sound bulletSound) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         this.bulletPool = bulletPool;
+        this.explosionPool = explosionPool;
         this.bulletSound = bulletSound;
         bulletRegion = atlas.findRegion("bulletMainShip");
         bulletV.set(0, 0.5f);
@@ -36,7 +38,7 @@ public class MainShip extends Ship {
         bulletDamage = 1;
         reloadInterval = RELOAD_INTERVAL;
         v0.set(0.5f, 0);
-        hp = 100;
+        hp = 20;
     }
 
 
@@ -153,6 +155,16 @@ public class MainShip extends Ship {
         return false;
     }
 
+    @Override
+    public  boolean isBulletCollision(Bullet bullet){
+        return  !(
+                bullet.getRight() < getLeft()
+                || bullet.getLeft() > getRight()
+                || bullet.getBottom() > pos.y
+                || bullet.getTop() < getBottom()
+        );
+    }
+
     public void moveRight(){
         v.set(v0);
     }
@@ -163,6 +175,11 @@ public class MainShip extends Ship {
 
     public void stop(){
         v.setZero();
+    }
+
+    public void revival(){
+        hp = 0;
+        hp = 20;
     }
 
   /*  private void shoot(){
