@@ -10,7 +10,7 @@ import ru.geekbrains.stargame.math.Rnd;
 import ru.geekbrains.stargame.pool.EnemyPool;
 import ru.geekbrains.stargame.sprite.EnemyShip;
 
-// Утилита генерить вражеские корабли
+// Утилита генерит вражеские корабли
 public class EnemyEmitter {
 
     private static final float GENERATE_INTERVAL = 4f;

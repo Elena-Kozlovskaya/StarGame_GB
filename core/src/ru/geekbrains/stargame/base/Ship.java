@@ -60,4 +60,12 @@ public class Ship extends Sprite {
         bullet.set(this, bulletRegion, bulletPos, bulletV, bulletHeight, worldBounds, bulletDamage);
         bulletSound.play(0.03f);
     }
+
+    public boolean takeDamage(int dmg) {
+        hp -= dmg;
+        if (hp <= 0) {
+            return true;
+        }
+        return false;
+    }
 }

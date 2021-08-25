@@ -146,7 +146,7 @@ public class MainShip extends Ship {
                     stop();
                 }
                 break;
-           /* case Input.Keys.UP:
+            /*case Input.Keys.UP:
                     shoot();
                 break;*/
         }
@@ -164,6 +164,12 @@ public class MainShip extends Ship {
     public void stop(){
         v.setZero();
     }
+
+  /*  private void shoot(){
+        Bullet bullet = bulletPool.obtain();
+        bullet.set(this, bulletRegion, bulletPos, bulletV, bulletHeight, worldBounds, bulletDamage);
+        bulletSound.play(0.03f);
+    }*/
 
 
 
