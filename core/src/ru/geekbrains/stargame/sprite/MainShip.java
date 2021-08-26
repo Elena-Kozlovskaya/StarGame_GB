@@ -4,13 +4,14 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-
 import ru.geekbrains.stargame.base.Ship;
 import ru.geekbrains.stargame.math.Rect;
 import ru.geekbrains.stargame.pool.BulletPool;
 import ru.geekbrains.stargame.pool.ExplosionPool;
 
 public class MainShip extends Ship {
+
+    private static final int HP = 100;
 
     private static final float BOTTOM_MARGIN = 0.05f;
     private static final float HEIGHT = 0.15f;
@@ -23,10 +24,6 @@ public class MainShip extends Ship {
     private int leftPointer = INVALID_POINTER;
     private int rightPointer = INVALID_POINTER;
 
-
-
-
-
     public MainShip(TextureAtlas atlas, BulletPool bulletPool, ExplosionPool explosionPool, Sound bulletSound) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         this.bulletPool = bulletPool;
@@ -38,9 +35,20 @@ public class MainShip extends Ship {
         bulletDamage = 1;
         reloadInterval = RELOAD_INTERVAL;
         v0.set(0.5f, 0);
-        hp = 20;
+        hp = HP;
     }
 
+    public void startNewGame(){
+        hp = HP;
+        pressedLeft = false;
+        pressedRight = false;
+        leftPointer = INVALID_POINTER;
+        rightPointer = INVALID_POINTER;
+        stop();
+        this.pos.x = worldBounds.pos.x;
+        flushDestroy();
+
+    }
 
     @Override
     public void resize(Rect worldBounds) {
@@ -177,12 +185,12 @@ public class MainShip extends Ship {
         v.setZero();
     }
 
-    public void revival(){
+    /*public void revival(){
         hp = 0;
         hp = 20;
-    }
+    }*/
 
-  /*  private void shoot(){
+/*  private void shoot(){
         Bullet bullet = bulletPool.obtain();
         bullet.set(this, bulletRegion, bulletPos, bulletV, bulletHeight, worldBounds, bulletDamage);
         bulletSound.play(0.03f);
