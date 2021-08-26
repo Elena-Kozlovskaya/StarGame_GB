@@ -8,9 +8,10 @@ import ru.geekbrains.stargame.screen.GameScreen;
 
 public class NewGameButton extends BaseButton {
 
-    private static final float PADDING = 0.1f; // коэф для отступа
+    private static final float TOP_MARGIN = - 0.12f; // коэф для отступа
+    private static final float SIZE = 0.05f;
 
-    private GameScreen gameScreen;
+    private final GameScreen gameScreen;
 
 
     public NewGameButton(TextureAtlas atlas, GameScreen gameScreen) {
@@ -20,15 +21,13 @@ public class NewGameButton extends BaseButton {
 
     @Override
     public void resize(Rect worldBounds) {
-        setHeightProportion(0.08f);
+        setHeightProportion(SIZE);
         // позиционируем справа внизу
-        setBottom(worldBounds.getBottom() + PADDING);
+        setTop(TOP_MARGIN);
     }
 
     @Override
     public void action() {
-        System.out.println("NewGameButton action");
-        gameScreen.gameOver();
-        this.destroy();
+        gameScreen.startNewGame();
     }
 }
